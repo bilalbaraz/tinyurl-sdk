@@ -26,6 +26,8 @@ class TinyURLClient:
         """Create a TinyURL short link for the provided long URL."""
         if not url:
             raise ValueError("url is required")
+        if alias is not None and len(alias) < 5:
+            raise ValueError("alias must be at least 5 characters long")
 
         return self._shorten_token(
             url,
@@ -47,6 +49,8 @@ class TinyURLClient:
     ) -> str:
         if not self.api_key:
             raise TinyURLClientError("api_key is required for token API usage")
+        if alias is not None and len(alias) < 5:
+            raise ValueError("alias must be at least 5 characters long")
 
         payload = {"url": url}
         if domain:
